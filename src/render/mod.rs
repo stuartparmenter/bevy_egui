@@ -149,7 +149,7 @@ pub fn extract_egui_camera_view_system(
                     EguiViewTarget(render_entity),
                     egui_render_output,
                     EguiPixelsPerPoint { pixels_per_point },
-                    TemporaryRenderEntity,
+                    TemporaryRenderEntity::default(),
                 ))
                 .id();
 
@@ -331,6 +331,7 @@ impl SpecializedRenderPipeline for EguiPipeline {
                         VertexFormat::Unorm8x4,  // color (sRGB)
                     ],
                 )],
+                constants: Vec::new(),
             },
             fragment: Some(FragmentState {
                 shader: EGUI_SHADER_HANDLE,
@@ -341,6 +342,7 @@ impl SpecializedRenderPipeline for EguiPipeline {
                     blend: Some(BlendState::PREMULTIPLIED_ALPHA_BLENDING),
                     write_mask: ColorWrites::ALL,
                 })],
+                constants: Vec::new(),
             }),
             primitive: PrimitiveState::default(),
             depth_stencil: None,
