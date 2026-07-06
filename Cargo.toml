@@ -117,7 +117,7 @@ bevy_shader = { version = "0.20.0-dev", optional = true }
 bevy_transform = { version = "0.20.0-dev", optional = true }
 encase = { version = "0.12", optional = true }
 itertools = { version = "0.14", optional = true }
-wgpu-types = { version = "29.0.3", optional = true }
+wgpu-types = { version = "29", optional = true }
 
 # `bevy_ui` feature
 bevy_ui_render = { version = "0.20.0-dev", optional = true }
