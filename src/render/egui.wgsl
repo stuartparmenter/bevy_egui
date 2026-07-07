@@ -1,3 +1,8 @@
+// Required by wgpu trunk's naga for the `binding_array<>` declarations in
+// the BINDLESS branch below. Unconditional (not behind the ifdef) to match
+// how bevy's own shaders declare it (e.g. mesh_view_bindings.wgsl line 1).
+enable wgpu_binding_array;
+
 struct Transform {
     scale: vec2<f32>,
     translation: vec2<f32>,
