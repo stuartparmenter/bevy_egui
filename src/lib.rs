@@ -823,6 +823,7 @@ impl EguiContexts<'_, '_> {
 
 /// A resource for storing `bevy_egui` user textures.
 #[derive(Clone, Resource, ExtractResource)]
+#[extract_app(bevy_render::RenderApp)]
 #[cfg(feature = "render")]
 pub struct EguiUserTextures {
     textures: HashMap<AssetId<Image>, (EguiTextureHandle, u64)>,

@@ -38,7 +38,7 @@ pub struct ExtractedEguiSettings(pub EguiContextSettings);
 /// The extracted version of [`EguiManagedTextures`].
 #[derive(Debug, Resource)]
 pub struct ExtractedEguiManagedTextures(pub HashMap<(Entity, u64), Handle<Image>>);
-impl ExtractResource for ExtractedEguiManagedTextures {
+impl ExtractResource<bevy_render::RenderApp> for ExtractedEguiManagedTextures {
     type Source = EguiManagedTextures;
 
     fn extract_resource(source: &Self::Source) -> Self {
