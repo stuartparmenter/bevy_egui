@@ -1296,8 +1296,8 @@ impl Plugin for EguiPlugin {
             load_internal_asset!(
                 app,
                 render::EGUI_SHADER_HANDLE,
-                "render/egui.wgsl",
-                bevy_shader::Shader::from_wgsl
+                "render/egui.wesl",
+                bevy_shader::Shader::from_wesl
             );
 
             let Some(render_app) = app.get_sub_app_mut(RenderApp) else {
