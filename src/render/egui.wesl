@@ -1,6 +1,6 @@
 // Required by wgpu trunk's naga for the `binding_array<>` declarations in
-// the BINDLESS branch below. Unconditional (not behind the ifdef) to match
-// how bevy's own shaders declare it (e.g. mesh_view_bindings.wgsl line 1).
+// the BINDLESS branch below. Unconditional (not behind the flag) to match
+// how bevy's own shaders declare it (e.g. mesh_view_bindings.wesl).
 enable wgpu_binding_array;
 
 struct Transform {
@@ -22,21 +22,24 @@ struct VertexOutput {
 
 @group(0) @binding(0) var<uniform> transform: Transform;
 
-#ifdef BINDLESS
+@if(BINDLESS)
 @group(1) @binding(0) var image_texture: binding_array<texture_2d<f32>>;
+@if(BINDLESS)
 @group(1) @binding(1) var image_sampler: binding_array<sampler>;
 
 // Fix for DX12 backend in wgpu which appears to only support struct immediates
 // wgpu::backend::wgpu_core: Shader translation error for stage ShaderStages(FRAGMENT): HLSL: Unimplemented("immediate 'offset' has non-struct type; tracked by: https://github.com/gfx-rs/wgpu/issues/5683")
+@if(BINDLESS)
 struct BindlessOffset {
     offset: u32,
 };
+@if(BINDLESS)
 var<immediate> offset: BindlessOffset;
 
-#else //BINDLESS
+@if(!BINDLESS)
 @group(1) @binding(0) var image_texture: texture_2d<f32>;
+@if(!BINDLESS)
 @group(1) @binding(1) var image_sampler: sampler;
-#endif // BINDLESS
 
 // 0-1 linear  from  0-1 sRGB gamma.
 fn linear_from_gamma_rgb(srgb: vec3<f32>) -> vec3<f32> {
@@ -68,10 +71,10 @@ fn vs_main(in: VertexInput) -> VertexOutput {
 
 @fragment
 fn fs_main(in: VertexOutput) -> @location(0) vec4<f32> {
-    #ifdef BINDLESS
+@if(BINDLESS)
     let image_texture = image_texture[offset.offset];
+@if(BINDLESS)
     let image_sampler = image_sampler[offset.offset];
-    #endif
 
     // Quoting the Egui's glsl shader:
     // "We multiply the colors in gamma space, because that's the only way to get text to look right."
