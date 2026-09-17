@@ -11,7 +11,7 @@ use bevy_ecs::{
     observer::On,
     prelude::{Commands, Query, With},
 };
-use bevy_math::Ray3d;
+use bevy_shape::Ray3d;
 use bevy_picking::{
     Pickable,
     events::{PointerMove, PointerOut, PointerOver},
